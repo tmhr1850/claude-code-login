@@ -240,7 +240,9 @@ runs:
       if: inputs.code == ''
       shell: bash
       run: |
-        gh cache delete claude-oauth-state --repo ${{ github.repository }}
+        if gh cache list --repo ${{ github.repository }} --key claude-oauth-state | grep -q claude-oauth-state; then
+          gh cache delete claude-oauth-state --repo ${{ github.repository }}
+        fi
       env:
         GITHUB_TOKEN: ${{ github.token }}
 
@@ -255,7 +257,9 @@ runs:
       if: inputs.code != '' && steps.oauth.outputs.success == 'true'
       shell: bash
       run: |
-        gh cache delete claude-oauth-credentials --repo ${{ github.repository }}
+        if gh cache list --repo ${{ github.repository }} --key claude-oauth-credentials | grep -q claude-oauth-credentials; then
+          gh cache delete claude-oauth-credentials --repo ${{ github.repository }}
+        fi
       env:
         GITHUB_TOKEN: ${{ github.token }}
 
