@@ -232,7 +232,6 @@ if (import.meta.main) {
     // Code exchange flow
     if (!await verifyState()) {
       console.error('Error: Invalid or expired state. Please run the login process again.');
-      console.log('::set-output name=success::false');
       process.exit(1);
     }
     
@@ -254,16 +253,13 @@ if (import.meta.main) {
         console.log(`Token expires at: ${new Date(tokens.expiresAt).toLocaleString()}`);
         console.log('===============');
         
-        // Output for GitHub Actions
-        console.log(`::set-output name=success::true`);
-        console.log(`::set-output name=expires_at::${tokens.expiresAt}`);
+        // Success - exit code 0 will be handled by GitHub Action
         
         process.exit(0);
       }
     }
     
     console.error('Login failed!');
-    console.log('::set-output name=success::false');
     process.exit(1);
   } else {
     // URL generation flow

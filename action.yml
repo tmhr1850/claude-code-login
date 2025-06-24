@@ -72,17 +72,19 @@ runs:
           echo "   - Click 'Run workflow'"
           echo ""
           echo "🔄 **Ready for Step 2!**"
-          echo "set-output name=success::pending" >> $GITHUB_OUTPUT
+          echo "success=pending" >> $GITHUB_OUTPUT
         else
           echo "🔐 **STEP 2: Exchange Code for Tokens**"
           echo ""
           echo "Authorization code provided: ${MASK_CODE}"
           echo ""
           
-          # Exchange the code for tokens
-          bun run index.ts "${{ inputs.code }}"
-          
-          # The script itself handles the GitHub Actions outputs
+          # Exchange the code for tokens and capture outputs
+          if bun run index.ts "${{ inputs.code }}"; then
+            echo "success=true" >> $GITHUB_OUTPUT
+          else
+            echo "success=false" >> $GITHUB_OUTPUT
+          fi
         fi
       env:
         MASK_CODE: ${{ inputs.code != '' && '***REDACTED***' || 'Not provided' }}

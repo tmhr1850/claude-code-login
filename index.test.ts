@@ -543,21 +543,22 @@ describe('OAuth Code Exchange - Integration Tests', () => {
       expect(stderr).toContain('State has expired');
     });
 
-    test('should output GitHub Actions format on failure', async () => {
+    test('should exit with error code on failure', async () => {
       // No state file - will fail
       const { spawn } = await import('node:child_process');
       const proc = spawn('bun', ['run', 'index.ts', 'test-code']);
       
-      let stdout = '';
-      proc.stdout.on('data', (data) => {
-        stdout += data.toString();
+      let stderr = '';
+      proc.stderr.on('data', (data) => {
+        stderr += data.toString();
       });
       
-      await new Promise<number>((resolve) => {
+      const exitCode = await new Promise<number>((resolve) => {
         proc.on('exit', (code) => resolve(code ?? 1));
       });
       
-      expect(stdout).toContain('::set-output name=success::false');
+      expect(exitCode).toBe(1);
+      expect(stderr).toContain('Invalid or expired state');
     });
   });
 });
