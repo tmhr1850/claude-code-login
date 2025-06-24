@@ -43,6 +43,7 @@ runs:
       id: oauth
       shell: bash
       run: |
+        cd ${GITHUB_ACTION_PATH}
         if [ -z "${{ inputs.code }}" ]; then
           echo "🔗 **STEP 1: Generate Login URL**"
           echo ""
@@ -50,7 +51,7 @@ runs:
           echo ""
           
           # Generate the login URL
-          LOGIN_URL=$(bun run ${GITHUB_ACTION_PATH}/index.ts)
+          LOGIN_URL=$(bun run index.ts)
           
           echo "✅ **Login URL Generated Successfully!**"
           echo ""
@@ -79,7 +80,7 @@ runs:
           echo ""
           
           # Exchange the code for tokens
-          bun run ${GITHUB_ACTION_PATH}/index.ts "${{ inputs.code }}"
+          bun run index.ts "${{ inputs.code }}"
           
           # The script itself handles the GitHub Actions outputs
         fi
