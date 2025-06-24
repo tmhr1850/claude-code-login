@@ -236,7 +236,7 @@ runs:
       if: inputs.code == ''
       shell: bash
       run: |
-        gh cache delete claude-oauth-state --repo ${{ github.repository }} || true
+        gh cache delete claude-oauth-state --repo ${{ github.repository }}
       env:
         GITHUB_TOKEN: ${{ github.token }}
 
@@ -251,7 +251,7 @@ runs:
       if: inputs.code != '' && steps.oauth.outputs.success == 'true'
       shell: bash
       run: |
-        gh cache delete claude-oauth-credentials --repo ${{ github.repository }} || true
+        gh cache delete claude-oauth-credentials --repo ${{ github.repository }}
       env:
         GITHUB_TOKEN: ${{ github.token }}
 
