@@ -1,0 +1,16 @@
+name: Claude OAuth
+
+on:
+  workflow_dispatch:
+    inputs:
+      code:
+        description: 'Authorization code (leave empty for step 1)'
+        required: false
+
+jobs:
+  auth:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: grll/claude-code-login@v1
+        with:
+          code: ${{ inputs.code }}
