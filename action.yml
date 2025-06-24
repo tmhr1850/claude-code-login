@@ -33,14 +33,14 @@ runs:
         cd ${GITHUB_ACTION_PATH}
         bun install
 
-    - name: Cache OAuth State
-      uses: actions/cache@v4
+    - name: Restore OAuth State
+      uses: actions/cache/restore@v4
       with:
         path: ${{ github.action_path }}/claude_oauth_state.json
         key: claude-oauth-state
 
-    - name: Cache OAuth Credentials
-      uses: actions/cache@v4
+    - name: Restore OAuth Credentials
+      uses: actions/cache/restore@v4
       with:
         path: ${{ github.action_path }}/credentials.json
         key: claude-oauth-credentials
@@ -231,3 +231,17 @@ runs:
         fi
       env:
         MASK_CODE: ${{ inputs.code != '' && '***REDACTED***' || 'Not provided' }}
+
+    - name: Save OAuth State
+      if: inputs.code == ''
+      uses: actions/cache/save@v4
+      with:
+        path: ${{ github.action_path }}/claude_oauth_state.json
+        key: claude-oauth-state
+
+    - name: Save OAuth Credentials
+      if: inputs.code != '' && steps.oauth.outputs.success == 'true'
+      uses: actions/cache/save@v4
+      with:
+        path: ${{ github.action_path }}/credentials.json
+        key: claude-oauth-credentials
