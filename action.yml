@@ -77,7 +77,3 @@ runs:
         fi
       env:
         MASK_CODE: ${{ inputs.code != '' && '***REDACTED***' || 'Not provided' }}
-
-branding:
-  icon: 'key'
-  color: 'blue'
