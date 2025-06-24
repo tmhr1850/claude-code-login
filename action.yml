@@ -142,8 +142,20 @@ runs:
             echo "" >> $GITHUB_STEP_SUMMARY
             echo "| File | Description | Status |" >> $GITHUB_STEP_SUMMARY
             echo "|------|-------------|--------|" >> $GITHUB_STEP_SUMMARY
-            echo "| \`credentials.json\` | OAuth access & refresh tokens | ✅ Created |" >> $GITHUB_STEP_SUMMARY
+            echo "| \`credentials.json\` | OAuth access & refresh tokens | ✅ Created & Cached |" >> $GITHUB_STEP_SUMMARY
             echo "| \`claude_oauth_state.json\` | Temporary state file | 🗑️ Cleaned up |" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "### 💾 Cached for Reuse" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "The \`credentials.json\` file has been cached with key \`claude-oauth-credentials\` and can be reused by other workflows in this repository." >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "\`\`\`yaml" >> $GITHUB_STEP_SUMMARY
+            echo "- name: Restore Claude Credentials" >> $GITHUB_STEP_SUMMARY
+            echo "  uses: actions/cache@v4" >> $GITHUB_STEP_SUMMARY
+            echo "  with:" >> $GITHUB_STEP_SUMMARY
+            echo "    path: credentials.json" >> $GITHUB_STEP_SUMMARY
+            echo "    key: claude-oauth-credentials" >> $GITHUB_STEP_SUMMARY
+            echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
             echo "" >> $GITHUB_STEP_SUMMARY
             echo "### 🚀 What's Next?" >> $GITHUB_STEP_SUMMARY
             echo "" >> $GITHUB_STEP_SUMMARY
