@@ -7,6 +7,10 @@ on:
         description: 'Authorization code (leave empty for step 1)'
         required: false
 
+permissions:
+  actions: write  # Required for cache management
+  contents: read  # Required for basic repository access
+
 jobs:
   auth:
     runs-on: ubuntu-latest
