@@ -91,6 +91,20 @@ jobs:
    - Run the workflow again with the code
    - Access tokens will be saved to `credentials.json`
 
+#### Cached Credentials
+
+After successful authentication, the `credentials.json` file is automatically cached in GitHub Actions cache with the key `claude-oauth-credentials`. This allows other workflows in your repository to reuse the OAuth credentials without re-authentication.
+
+To access cached credentials in other workflows:
+
+```yaml
+- name: Restore Claude Credentials
+  uses: actions/cache@v4
+  with:
+    path: credentials.json
+    key: claude-oauth-credentials
+```
+
 ## Testing
 
 Run the test suite:
