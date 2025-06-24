@@ -55,7 +55,7 @@ runs:
           echo '```' >> $GITHUB_STEP_SUMMARY
           echo "╔══════════════════════════════════════════════════════════════════════════╗" >> $GITHUB_STEP_SUMMARY
           echo "║                                                                          ║" >> $GITHUB_STEP_SUMMARY
-          echo "║                        ✨ GRLL Claude Code OAuth ✨                      ║" >> $GITHUB_STEP_SUMMARY
+          echo "║                        ✨ Claude Code OAuth (by @grll) ✨                ║" >> $GITHUB_STEP_SUMMARY
           echo "║                                                                          ║" >> $GITHUB_STEP_SUMMARY
           echo "╚══════════════════════════════════════════════════════════════════════════╝" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
@@ -75,7 +75,7 @@ runs:
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "### 🌐 Your Login URL" >> $GITHUB_STEP_SUMMARY
           echo '```' >> $GITHUB_STEP_SUMMARY
-          echo "$LOGIN_URL" >> $GITHUB_STEP_SUMMARY
+          echo "[$LOGIN_URL]($LOGIN_URL)" >> $GITHUB_STEP_SUMMARY
           echo '```' >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "### 📋 Next Steps" >> $GITHUB_STEP_SUMMARY
@@ -112,7 +112,7 @@ runs:
             echo '```' >> $GITHUB_STEP_SUMMARY
             echo "╔══════════════════════════════════════════════════════════════════════════╗" >> $GITHUB_STEP_SUMMARY
             echo "║                                                                          ║" >> $GITHUB_STEP_SUMMARY
-            echo "║                        ✨ GRLL Claude Code OAuth ✨                      ║" >> $GITHUB_STEP_SUMMARY
+            echo "║                        ✨ Claude Code OAuth (by @grll) ✨                ║" >> $GITHUB_STEP_SUMMARY
             echo "║                                                                          ║" >> $GITHUB_STEP_SUMMARY
             echo "╚══════════════════════════════════════════════════════════════════════════╝" >> $GITHUB_STEP_SUMMARY
             echo "" >> $GITHUB_STEP_SUMMARY
@@ -162,7 +162,7 @@ runs:
             echo '```' >> $GITHUB_STEP_SUMMARY
             echo "╔══════════════════════════════════════════════════════════════════════════╗" >> $GITHUB_STEP_SUMMARY
             echo "║                                                                          ║" >> $GITHUB_STEP_SUMMARY
-            echo "║                        ⚠️  GRLL Claude Code OAuth ⚠️                     ║" >> $GITHUB_STEP_SUMMARY
+            echo "║                        ⚠️  Claude Code OAuth (by @grll) ⚠️               ║" >> $GITHUB_STEP_SUMMARY
             echo "║                                                                          ║" >> $GITHUB_STEP_SUMMARY
             echo "╚══════════════════════════════════════════════════════════════════════════╝" >> $GITHUB_STEP_SUMMARY
             echo "" >> $GITHUB_STEP_SUMMARY
