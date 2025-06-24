@@ -38,12 +38,17 @@ If using the published action from GitHub Marketplace, create `.github/workflows
 
 ```yaml
 name: Claude OAuth
+
 on:
   workflow_dispatch:
     inputs:
       code:
         description: 'Authorization code (leave empty for step 1)'
         required: false
+
+permissions:
+  actions: write  # Required for cache management
+  contents: read  # Required for basic repository access
 
 jobs:
   auth:
