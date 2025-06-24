@@ -1,6 +1,9 @@
 name: 'Claude Code OAuth Login'
 description: 'Authenticate with Claude Code using OAuth 2.0 flow'
 author: 'Guillaume Raille <guillaume.raille@gmail.com>'
+branding:
+  icon: 'log-in'
+  color: 'orange'
 
 inputs:
   code:
