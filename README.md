@@ -109,5 +109,21 @@ bunx tsc --noEmit
 - `index.test.ts` - Comprehensive test suite
 - `action.yml` - GitHub Action definition
 - `CLAUDE.md` - Development guidelines for Claude Code
+- `scripts/` - Automation scripts for release management
+
+## Development
+
+### Updating v1 Release
+
+To update the v1 release to include the latest changes:
+
+```bash
+./scripts/update-v1-release.sh
+```
+
+This script automatically:
+- Moves the v1 tag to the latest main commit
+- Updates the GitHub release with current changes
+- Ensures marketplace users get the latest version
 
 This project was created using `bun init` in bun v1.2.17. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
