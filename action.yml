@@ -232,12 +232,28 @@ runs:
       env:
         MASK_CODE: ${{ inputs.code != '' && '***REDACTED***' || 'Not provided' }}
 
+    - name: Delete Old OAuth State Cache
+      if: inputs.code == ''
+      shell: bash
+      run: |
+        gh cache delete claude-oauth-state || true
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
+
     - name: Save OAuth State
       if: inputs.code == ''
       uses: actions/cache/save@v4
       with:
         path: ${{ github.action_path }}/claude_oauth_state.json
         key: claude-oauth-state
+
+    - name: Delete Old OAuth Credentials Cache
+      if: inputs.code != '' && steps.oauth.outputs.success == 'true'
+      shell: bash
+      run: |
+        gh cache delete claude-oauth-credentials || true
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
 
     - name: Save OAuth Credentials
       if: inputs.code != '' && steps.oauth.outputs.success == 'true'
