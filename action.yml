@@ -53,6 +53,9 @@ runs:
         if [ -z "${{ inputs.code }}" ]; then
           echo "🔗 Generating OAuth Login URL..."
           
+          # Clear any existing state file from cache
+          rm -f claude_oauth_state.json
+          
           # Generate the login URL
           LOGIN_URL=$(bun run index.ts)
           
@@ -108,6 +111,9 @@ runs:
           echo "success=pending" >> $GITHUB_OUTPUT
         else
           echo "🔐 Exchanging authorization code for tokens..."
+          
+          # Clear any existing credentials file from cache
+          rm -f credentials.json
           
           # Exchange the code for tokens and capture outputs
           if bun run index.ts "${{ inputs.code }}"; then
