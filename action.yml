@@ -5,6 +5,10 @@ branding:
   icon: 'log-in'
   color: 'orange'
 
+permissions:
+  actions: write  # Required for cache management (create/delete cache entries)
+  contents: read  # Required for basic repository access
+
 inputs:
   code:
     description: 'Authorization code from Claude (leave empty for step 1)'
