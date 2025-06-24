@@ -33,6 +33,12 @@ runs:
         cd ${GITHUB_ACTION_PATH}
         bun install
 
+    - name: Cache OAuth State
+      uses: actions/cache@v4
+      with:
+        path: ${{ github.action_path }}/claude_oauth_state.json
+        key: claude-oauth-state
+
     - name: Run OAuth Flow
       id: oauth
       shell: bash
