@@ -39,6 +39,12 @@ runs:
         path: ${{ github.action_path }}/claude_oauth_state.json
         key: claude-oauth-state
 
+    - name: Cache OAuth Credentials
+      uses: actions/cache@v4
+      with:
+        path: ${{ github.action_path }}/credentials.json
+        key: claude-oauth-credentials
+
     - name: Run OAuth Flow
       id: oauth
       shell: bash
