@@ -47,6 +47,7 @@ runs:
     - name: Run OAuth Flow
       id: oauth
       env:
+        MASK_CODE: ${{ inputs.code != '' && '***REDACTED***' || 'Not provided' }}
         GH_TOKEN: ${{ secrets.SECRETS_ADMIN_PAT }}
       shell: bash
       run: |
@@ -166,15 +167,7 @@ runs:
             echo "" >> $GITHUB_STEP_SUMMARY
             echo "You can now use these secrets in your workflows:" >> $GITHUB_STEP_SUMMARY
             echo "" >> $GITHUB_STEP_SUMMARY
-            echo "\`\`\`yaml" >> $GITHUB_STEP_SUMMARY
-            echo "- name: Use Claude API" >> $GITHUB_STEP_SUMMARY
-            echo "  env:" >> $GITHUB_STEP_SUMMARY
-            echo "    CLAUDE_ACCESS_TOKEN: \${{ secrets.CLAUDE_ACCESS_TOKEN }}" >> $GITHUB_STEP_SUMMARY
-            echo "    CLAUDE_REFRESH_TOKEN: \${{ secrets.CLAUDE_REFRESH_TOKEN }}" >> $GITHUB_STEP_SUMMARY
-            echo "    CLAUDE_EXPIRES_AT: \${{ secrets.CLAUDE_EXPIRES_AT }}" >> $GITHUB_STEP_SUMMARY
-            echo "  run: |" >> $GITHUB_STEP_SUMMARY
-            echo "    # Your Claude API commands here" >> $GITHUB_STEP_SUMMARY
-            echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+            echo "[see example workflow](https://github.com/${{ github.repository }}#using-the-oauth-credentials)"
             echo "" >> $GITHUB_STEP_SUMMARY
             echo "---" >> $GITHUB_STEP_SUMMARY
             echo "" >> $GITHUB_STEP_SUMMARY
@@ -194,7 +187,7 @@ runs:
             EXPIRES_AT=$(jq -r '.claudeAiOauth.expiresAt' credentials.json)
             
             # Store tokens as GitHub secrets using PAT
-            if [ -z "${{ secrets.SECRETS_ADMIN_PAT }}" ]; then
+            if [ -z "${{ GH_TOKEN }}" ]; then
               echo "❌ Error: SECRETS_ADMIN_PAT is not configured!"
               echo ""
               echo "This action requires a Personal Access Token to securely store the OAuth tokens as GitHub secrets."
@@ -259,8 +252,7 @@ runs:
             echo "success=false" >> $GITHUB_OUTPUT
           fi
         fi
-      env:
-        MASK_CODE: ${{ inputs.code != '' && '***REDACTED***' || 'Not provided' }}
+
 
     - name: Delete Old OAuth State Cache
       shell: bash
