@@ -43,11 +43,6 @@ runs:
         path: ${{ github.action_path }}/claude_oauth_state.json
         key: claude-oauth-state
 
-    - name: Restore OAuth Credentials
-      uses: actions/cache/restore@v4
-      with:
-        path: ${{ github.action_path }}/credentials.json
-        key: claude-oauth-credentials
 
     - name: Run OAuth Flow
       id: oauth
@@ -148,28 +143,36 @@ runs:
             echo "" >> $GITHUB_STEP_SUMMARY
             echo "Your Claude Code credentials have been successfully generated and saved!" >> $GITHUB_STEP_SUMMARY
             echo "" >> $GITHUB_STEP_SUMMARY
+            echo "### 🔐 Stored as GitHub Secrets" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "The following secrets have been created/updated in your repository:" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "| Secret Name | Description |" >> $GITHUB_STEP_SUMMARY
+            echo "|-------------|-------------|" >> $GITHUB_STEP_SUMMARY
+            echo "| \`CLAUDE_ACCESS_TOKEN\` | OAuth access token for Claude API |" >> $GITHUB_STEP_SUMMARY
+            echo "| \`CLAUDE_REFRESH_TOKEN\` | OAuth refresh token for token renewal |" >> $GITHUB_STEP_SUMMARY
+            echo "| \`CLAUDE_EXPIRES_AT\` | Token expiration timestamp (milliseconds) |" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
             echo "### 📁 Generated Files" >> $GITHUB_STEP_SUMMARY
             echo "" >> $GITHUB_STEP_SUMMARY
             echo "| File | Description | Status |" >> $GITHUB_STEP_SUMMARY
             echo "|------|-------------|--------|" >> $GITHUB_STEP_SUMMARY
-            echo "| \`credentials.json\` | OAuth access & refresh tokens | ✅ Created & Cached |" >> $GITHUB_STEP_SUMMARY
+            echo "| \`credentials.json\` | OAuth tokens (local file) | ✅ Created |" >> $GITHUB_STEP_SUMMARY
             echo "| \`claude_oauth_state.json\` | Temporary state file | 🗑️ Cleaned up |" >> $GITHUB_STEP_SUMMARY
-            echo "" >> $GITHUB_STEP_SUMMARY
-            echo "### 💾 Cached for Reuse" >> $GITHUB_STEP_SUMMARY
-            echo "" >> $GITHUB_STEP_SUMMARY
-            echo "The \`credentials.json\` file has been cached with key \`claude-oauth-credentials\` and can be reused by other workflows in this repository." >> $GITHUB_STEP_SUMMARY
-            echo "" >> $GITHUB_STEP_SUMMARY
-            echo "\`\`\`yaml" >> $GITHUB_STEP_SUMMARY
-            echo "- name: Restore Claude Credentials" >> $GITHUB_STEP_SUMMARY
-            echo "  uses: actions/cache@v4" >> $GITHUB_STEP_SUMMARY
-            echo "  with:" >> $GITHUB_STEP_SUMMARY
-            echo "    path: credentials.json" >> $GITHUB_STEP_SUMMARY
-            echo "    key: claude-oauth-credentials" >> $GITHUB_STEP_SUMMARY
-            echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
             echo "" >> $GITHUB_STEP_SUMMARY
             echo "### 🚀 What's Next?" >> $GITHUB_STEP_SUMMARY
             echo "" >> $GITHUB_STEP_SUMMARY
-            echo "You can now use these credentials with Claude Code CLI or other tools that support the OAuth flow." >> $GITHUB_STEP_SUMMARY
+            echo "You can now use these secrets in your workflows:" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "\`\`\`yaml" >> $GITHUB_STEP_SUMMARY
+            echo "- name: Use Claude API" >> $GITHUB_STEP_SUMMARY
+            echo "  env:" >> $GITHUB_STEP_SUMMARY
+            echo "    CLAUDE_ACCESS_TOKEN: \${{ secrets.CLAUDE_ACCESS_TOKEN }}" >> $GITHUB_STEP_SUMMARY
+            echo "    CLAUDE_REFRESH_TOKEN: \${{ secrets.CLAUDE_REFRESH_TOKEN }}" >> $GITHUB_STEP_SUMMARY
+            echo "    CLAUDE_EXPIRES_AT: \${{ secrets.CLAUDE_EXPIRES_AT }}" >> $GITHUB_STEP_SUMMARY
+            echo "  run: |" >> $GITHUB_STEP_SUMMARY
+            echo "    # Your Claude API commands here" >> $GITHUB_STEP_SUMMARY
+            echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
             echo "" >> $GITHUB_STEP_SUMMARY
             echo "---" >> $GITHUB_STEP_SUMMARY
             echo "" >> $GITHUB_STEP_SUMMARY
@@ -182,6 +185,28 @@ runs:
             
             echo "✅ Step 2 Complete - OAuth authentication successful!"
             echo "success=true" >> $GITHUB_OUTPUT
+            
+            # Extract token values from credentials.json
+            ACCESS_TOKEN=$(jq -r '.claudeAiOauth.accessToken' credentials.json)
+            REFRESH_TOKEN=$(jq -r '.claudeAiOauth.refreshToken' credentials.json)
+            EXPIRES_AT=$(jq -r '.claudeAiOauth.expiresAt' credentials.json)
+            
+            # Store tokens as GitHub secrets using PAT
+            if [ -z "${{ secrets.SECRETS_ADMIN_PAT }}" ]; then
+              echo "❌ Error: SECRETS_ADMIN_PAT is not configured!"
+              echo ""
+              echo "This action requires a Personal Access Token to securely store the OAuth tokens as GitHub secrets."
+              echo "Please follow the setup instructions in the README.md to create and configure SECRETS_ADMIN_PAT."
+              echo ""
+              echo "See: https://github.com/${{ github.repository }}#prerequisites-setting-up-secrets_admin_pat"
+              exit 1
+            fi
+            
+            export GH_TOKEN="${{ secrets.SECRETS_ADMIN_PAT }}"
+            echo "$ACCESS_TOKEN" | gh secret set CLAUDE_ACCESS_TOKEN --repo ${{ github.repository }}
+            echo "$REFRESH_TOKEN" | gh secret set CLAUDE_REFRESH_TOKEN --repo ${{ github.repository }}
+            echo "$EXPIRES_AT" | gh secret set CLAUDE_EXPIRES_AT --repo ${{ github.repository }}
+            echo "✅ Tokens stored as GitHub secrets!"
           else
             # Failure case
             echo "" >> $GITHUB_STEP_SUMMARY
@@ -252,19 +277,3 @@ runs:
         path: ${{ github.action_path }}/claude_oauth_state.json
         key: claude-oauth-state
 
-    - name: Delete Old OAuth Credentials Cache
-      if: inputs.code != '' && steps.oauth.outputs.success == 'true'
-      shell: bash
-      run: |
-        if gh cache list --repo ${{ github.repository }} --key claude-oauth-credentials | grep -q claude-oauth-credentials; then
-          gh cache delete claude-oauth-credentials --repo ${{ github.repository }}
-        fi
-      env:
-        GITHUB_TOKEN: ${{ github.token }}
-
-    - name: Save OAuth Credentials
-      if: inputs.code != '' && steps.oauth.outputs.success == 'true'
-      uses: actions/cache/save@v4
-      with:
-        path: ${{ github.action_path }}/credentials.json
-        key: claude-oauth-credentials

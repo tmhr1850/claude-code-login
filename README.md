@@ -32,6 +32,35 @@ bun run index.ts <authorization_code>
 
 This repository includes a GitHub Action for easy OAuth authentication in CI/CD workflows.
 
+#### Prerequisites: Setting up SECRETS_ADMIN_PAT
+
+This action requires a Personal Access Token (PAT) to securely store OAuth credentials as GitHub secrets. Follow these steps:
+
+##### 1. Create a Fine-grained Personal Access Token (30 seconds)
+
+1. Go to **Settings** → **Developer settings** → **Personal access tokens** → **Fine-grained tokens** → **"Generate new token"**
+
+2. Configure the token:
+   - **Resource owner**: Choose the organization or user that owns the repository
+   - **Repository access**: Select "Only select repositories" and choose the repository/repositories that will run this action
+   - **Permissions**: 
+     - Repository → **Secrets**: Write (this automatically includes read permission)
+   - **Expiration**: Set the shortest practical lifetime (30-60 days) and add a calendar reminder to renew it
+   - **Name**: Give it a descriptive name like `actions-secret-sync-<repo>`
+
+3. Click **"Generate token"** and copy the value immediately (GitHub will never show it again)
+
+##### 2. Store the PAT as a Repository Secret (30 seconds)
+
+1. In your repository, go to **Settings** → **Secrets and variables** → **Actions**
+2. Click **"New repository secret"**
+3. Add the secret:
+   - **Name**: `SECRETS_ADMIN_PAT`
+   - **Value**: Paste your PAT from step 1
+4. Click **"Add secret"**
+
+> **Note**: You do NOT need the wide-open `repo` scope of a classic token. Fine-grained tokens with only `secrets:write` permission are more secure.
+
 #### Quick Setup (Marketplace)
 
 If using the published action from GitHub Marketplace, create `.github/workflows/claude-oauth.yml`:
@@ -94,20 +123,57 @@ jobs:
    - Open the URL and sign in to Claude
    - Copy the authorization code from the redirect URL
    - Run the workflow again with the code
-   - Access tokens will be saved to `credentials.json`
+   - OAuth tokens will be stored as GitHub secrets
 
-#### Cached Credentials
+#### Using the OAuth Credentials
 
-After successful authentication, the `credentials.json` file is automatically cached in GitHub Actions cache with the key `claude-oauth-credentials`. This allows other workflows in your repository to reuse the OAuth credentials without re-authentication.
+After successful authentication, the OAuth tokens are stored as repository secrets:
+- `CLAUDE_ACCESS_TOKEN` - OAuth access token for Claude API
+- `CLAUDE_REFRESH_TOKEN` - OAuth refresh token for token renewal  
+- `CLAUDE_EXPIRES_AT` - Token expiration timestamp (milliseconds)
 
-To access cached credentials in other workflows:
+To use these credentials in other workflows:
 
 ```yaml
-- name: Restore Claude Credentials
-  uses: actions/cache@v4
-  with:
-    path: credentials.json
-    key: claude-oauth-credentials
+name: Claude PR Assistant
+
+on:
+  issue_comment:
+    types: [created]
+  pull_request_review_comment:
+    types: [created]
+  issues:
+    types: [opened, assigned]
+  pull_request_review:
+    types: [submitted]
+
+jobs:
+  claude-code-action:
+    if: |
+      (github.event_name == 'issue_comment' && contains(github.event.comment.body, '@claude')) ||
+      (github.event_name == 'pull_request_review_comment' && contains(github.event.comment.body, '@claude')) ||
+      (github.event_name == 'pull_request_review' && contains(github.event.review.body, '@claude')) ||
+      (github.event_name == 'issues' && contains(github.event.issue.body, '@claude'))
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
+      issues: read
+      id-token: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Run Claude PR Action
+        uses: grll/claude-code-action@beta
+        with:
+          use_oauth: true
+          claude_access_token: ${{ secrets.CLAUDE_ACCESS_TOKEN }}
+          claude_refresh_token: ${{ secrets.CLAUDE_REFRESH_TOKEN }}
+          claude_expires_at: ${{ secrets.CLAUDE_EXPIRES_AT }}
+          timeout_minutes: "60"
 ```
 
 ## Testing
