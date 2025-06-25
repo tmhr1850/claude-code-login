@@ -237,7 +237,6 @@ runs:
         MASK_CODE: ${{ inputs.code != '' && '***REDACTED***' || 'Not provided' }}
 
     - name: Delete Old OAuth State Cache
-      if: inputs.code == ''
       shell: bash
       run: |
         if gh cache list --repo ${{ github.repository }} --key claude-oauth-state | grep -q claude-oauth-state; then
