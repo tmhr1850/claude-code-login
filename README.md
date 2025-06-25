@@ -38,7 +38,7 @@ This action requires a Personal Access Token (PAT) to securely store OAuth crede
 
 ##### 1. Create a Fine-grained Personal Access Token (30 seconds)
 
-1. Go to **Settings** → **Developer settings** → **Personal access tokens** → **Fine-grained tokens** → **"Generate new token"**
+1. Go to [**Settings** → **Developer settings** → **Personal access tokens** → **Fine-grained tokens** → **"Generate new token"**](https://github.com/settings/personal-access-tokens/new)
 
 2. Configure the token:
    - **Resource owner**: Choose the organization or user that owns the repository
