@@ -86,6 +86,7 @@ jobs:
       - uses: grll/claude-code-login@v1
         with:
           code: ${{ inputs.code }}
+          secrets_admin_pat: ${{ secrets.SECRETS_ADMIN_PAT }}
 ```
 
 #### Local Development Setup
@@ -109,6 +110,7 @@ jobs:
       - uses: ./
         with:
           code: ${{ inputs.code }}
+          secrets_admin_pat: ${{ secrets.SECRETS_ADMIN_PAT }}
 ```
 
 #### Usage Steps

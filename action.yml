@@ -14,6 +14,10 @@ inputs:
     description: 'Authorization code from Claude (leave empty for step 1)'
     required: false
     default: ''
+  secrets_admin_pat:
+    description: 'Personal Access Token with secrets:write permission'
+    required: false
+    default: ''
 
 outputs:
   success:
@@ -48,7 +52,6 @@ runs:
       id: oauth
       env:
         MASK_CODE: ${{ inputs.code != '' && '***REDACTED***' || 'Not provided' }}
-        GH_TOKEN: ${{ secrets.SECRETS_ADMIN_PAT }}
       shell: bash
       run: |
         cd ${GITHUB_ACTION_PATH}
@@ -187,7 +190,7 @@ runs:
             EXPIRES_AT=$(jq -r '.claudeAiOauth.expiresAt' credentials.json)
             
             # Store tokens as GitHub secrets using PAT
-            if [ -z "${{ GH_TOKEN }}" ]; then
+            if [ -z "${{ inputs.secrets_admin_pat }}" ]; then
               echo "❌ Error: SECRETS_ADMIN_PAT is not configured!"
               echo ""
               echo "This action requires a Personal Access Token to securely store the OAuth tokens as GitHub secrets."
@@ -197,6 +200,7 @@ runs:
               exit 1
             fi
 
+            export GH_TOKEN="${{ inputs.secrets_admin_pat }}"
             echo "$ACCESS_TOKEN" | gh secret set CLAUDE_ACCESS_TOKEN --repo ${{ github.repository }}
             echo "$REFRESH_TOKEN" | gh secret set CLAUDE_REFRESH_TOKEN --repo ${{ github.repository }}
             echo "$EXPIRES_AT" | gh secret set CLAUDE_EXPIRES_AT --repo ${{ github.repository }}
