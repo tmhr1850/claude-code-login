@@ -46,6 +46,8 @@ runs:
 
     - name: Run OAuth Flow
       id: oauth
+      env:
+        GH_TOKEN: ${{ secrets.SECRETS_ADMIN_PAT }}
       shell: bash
       run: |
         cd ${GITHUB_ACTION_PATH}
@@ -58,7 +60,7 @@ runs:
           # Generate the login URL
           LOGIN_URL=$(bun run index.ts)
           
-          # Create beautiful GitHub Step Summary
+          # Create a GitHub Step Summary
           echo "" >> $GITHUB_STEP_SUMMARY
           echo '```' >> $GITHUB_STEP_SUMMARY
           echo "╔══════════════════════════════════════════════════════════════════════════╗" >> $GITHUB_STEP_SUMMARY
@@ -201,8 +203,7 @@ runs:
               echo "See: https://github.com/${{ github.repository }}#prerequisites-setting-up-secrets_admin_pat"
               exit 1
             fi
-            
-            export GH_TOKEN="${{ secrets.SECRETS_ADMIN_PAT }}"
+
             echo "$ACCESS_TOKEN" | gh secret set CLAUDE_ACCESS_TOKEN --repo ${{ github.repository }}
             echo "$REFRESH_TOKEN" | gh secret set CLAUDE_REFRESH_TOKEN --repo ${{ github.repository }}
             echo "$EXPIRES_AT" | gh secret set CLAUDE_EXPIRES_AT --repo ${{ github.repository }}
