@@ -69,16 +69,25 @@ runs:
           echo '```' >> $GITHUB_STEP_SUMMARY
           echo "╔══════════════════════════════════════════════════════════════════════════╗" >> $GITHUB_STEP_SUMMARY
           echo "║                                                                          ║" >> $GITHUB_STEP_SUMMARY
-          echo "║                        ✨ Claude Code OAuth (by @grll) ✨                ║" >> $GITHUB_STEP_SUMMARY
+          echo "║                        ✨ Claude OAuth Login ✨                          ║" >> $GITHUB_STEP_SUMMARY
           echo "║                                                                          ║" >> $GITHUB_STEP_SUMMARY
           echo "╚══════════════════════════════════════════════════════════════════════════╝" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "     ░██████╗░  ░██████╗░  ░██╗░░░░░  ░██╗░░░░░" >> $GITHUB_STEP_SUMMARY
-          echo "     ██╔════╝░  ░██╔══██╗  ░██║░░░░░  ░██║░░░░░" >> $GITHUB_STEP_SUMMARY
-          echo "     ██║░░██╗░  ░██████╔╝  ░██║░░░░░  ░██║░░░░░" >> $GITHUB_STEP_SUMMARY
-          echo "     ██║░░╚██╗  ░██╔══██╗  ░██║░░░░░  ░██║░░░░░" >> $GITHUB_STEP_SUMMARY
-          echo "     ╚██████╔╝  ░██║░░██║  ░███████╗  ░███████╗" >> $GITHUB_STEP_SUMMARY
-          echo "     ░╚═════╝░  ░╚═╝░░╚═╝  ░╚══════╝  ░╚══════╝" >> $GITHUB_STEP_SUMMARY
+          echo "      ░██████╗ ░██╗      ░█████╗   ░██╗   ░██╗ ░██████╗░ ░███████░" >> $GITHUB_STEP_SUMMARY
+          echo "     ██╔═════╝ ░██║     ░██╔══██═╗ ░██║   ░██║ ░██╔══██╗ ░██╔═══╝" >> $GITHUB_STEP_SUMMARY
+          echo "     ██║       ░██║     ░███████ ║ ░██║   ░██║ ░██║░░██║ ░█████╗░" >> $GITHUB_STEP_SUMMARY
+          echo "     ██║       ░██║     ░██ ╔═██ ║ ░██║   ░██║ ░██║░░██║ ░██╔══╝" >> $GITHUB_STEP_SUMMARY
+          echo "     ╚██████═╗ ░███████╗░██ ║░██ ║ ░╚██████ ╔╝ ░██████╔╝ ░███████╗" >> $GITHUB_STEP_SUMMARY
+          echo "      ░╚═════╝  ░╚═════╝░ ╚═╝░░╚═╝  ░╚══════╝  ░╚═════╝  ░╚══════╝" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "     ░██╗      ░██████╗   ░██████╗  ░██╗ ░███╗   ░██╗" >> $GITHUB_STEP_SUMMARY
+          echo "     ░██║     ░██╔═══██╗ ░██╔════╝  ░██║ ░████╗  ░██║" >> $GITHUB_STEP_SUMMARY
+          echo "     ░██║     ░██║  ░██║ ░██║  ███╗ ░██║ ░██╔██╗ ░██║" >> $GITHUB_STEP_SUMMARY
+          echo "     ░██║     ░██║  ░██║ ░██║  ░██║ ░██║ ░██║╚██╗░██║" >> $GITHUB_STEP_SUMMARY
+          echo "     ░███████╗░╚██████╔╝ ░╚██████╔╝ ░██║ ░██║ ░╚████║" >> $GITHUB_STEP_SUMMARY
+          echo "     ░╚══════╝ ░╚═════╝   ░╚═════╝  ░╚═╝ ░╚═╝  ░╚═══╝" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "     by @grll" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "   ─────────────────────────────────────────────────────────────────────" >> $GITHUB_STEP_SUMMARY
           echo "                       【 STEP 1: Generate Login URL 】" >> $GITHUB_STEP_SUMMARY
@@ -127,16 +136,25 @@ runs:
             echo '```' >> $GITHUB_STEP_SUMMARY
             echo "╔══════════════════════════════════════════════════════════════════════════╗" >> $GITHUB_STEP_SUMMARY
             echo "║                                                                          ║" >> $GITHUB_STEP_SUMMARY
-            echo "║                        ✨ Claude Code OAuth (by @grll) ✨                ║" >> $GITHUB_STEP_SUMMARY
+            echo "║                        ✨ Claude OAuth Login ✨                          ║" >> $GITHUB_STEP_SUMMARY
             echo "║                                                                          ║" >> $GITHUB_STEP_SUMMARY
             echo "╚══════════════════════════════════════════════════════════════════════════╝" >> $GITHUB_STEP_SUMMARY
             echo "" >> $GITHUB_STEP_SUMMARY
-            echo "     ░██████╗░  ░██████╗░  ░██╗░░░░░  ░██╗░░░░░" >> $GITHUB_STEP_SUMMARY
-            echo "     ██╔════╝░  ░██╔══██╗  ░██║░░░░░  ░██║░░░░░" >> $GITHUB_STEP_SUMMARY
-            echo "     ██║░░██╗░  ░██████╔╝  ░██║░░░░░  ░██║░░░░░" >> $GITHUB_STEP_SUMMARY
-            echo "     ██║░░╚██╗  ░██╔══██╗  ░██║░░░░░  ░██║░░░░░" >> $GITHUB_STEP_SUMMARY
-            echo "     ╚██████╔╝  ░██║░░██║  ░███████╗  ░███████╗" >> $GITHUB_STEP_SUMMARY
-            echo "     ░╚═════╝░  ░╚═╝░░╚═╝  ░╚══════╝  ░╚══════╝" >> $GITHUB_STEP_SUMMARY
+            echo "      ░██████╗ ░██╗      ░█████╗   ░██╗   ░██╗ ░██████╗░ ░███████░" >> $GITHUB_STEP_SUMMARY
+            echo "     ██╔═════╝ ░██║     ░██╔══██═╗ ░██║   ░██║ ░██╔══██╗ ░██╔═══╝" >> $GITHUB_STEP_SUMMARY
+            echo "     ██║       ░██║     ░███████ ║ ░██║   ░██║ ░██║░░██║ ░█████╗░" >> $GITHUB_STEP_SUMMARY
+            echo "     ██║       ░██║     ░██ ╔═██ ║ ░██║   ░██║ ░██║░░██║ ░██╔══╝" >> $GITHUB_STEP_SUMMARY
+            echo "     ╚██████═╗ ░███████╗░██ ║░██ ║ ░╚██████ ╔╝ ░██████╔╝ ░███████╗" >> $GITHUB_STEP_SUMMARY
+            echo "      ░╚═════╝  ░╚═════╝░ ╚═╝░░╚═╝  ░╚══════╝  ░╚═════╝  ░╚══════╝" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "     ░██╗      ░██████╗   ░██████╗  ░██╗ ░███╗   ░██╗" >> $GITHUB_STEP_SUMMARY
+            echo "     ░██║     ░██╔═══██╗ ░██╔════╝  ░██║ ░████╗  ░██║" >> $GITHUB_STEP_SUMMARY
+            echo "     ░██║     ░██║  ░██║ ░██║  ███╗ ░██║ ░██╔██╗ ░██║" >> $GITHUB_STEP_SUMMARY
+            echo "     ░██║     ░██║  ░██║ ░██║  ░██║ ░██║ ░██║╚██╗░██║" >> $GITHUB_STEP_SUMMARY
+            echo "     ░███████╗░╚██████╔╝ ░╚██████╔╝ ░██║ ░██║ ░╚████║" >> $GITHUB_STEP_SUMMARY
+            echo "     ░╚══════╝ ░╚═════╝   ░╚═════╝  ░╚═╝ ░╚═╝  ░╚═══╝" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "     by @grll" >> $GITHUB_STEP_SUMMARY
             echo "" >> $GITHUB_STEP_SUMMARY
             echo "   ─────────────────────────────────────────────────────────────────────" >> $GITHUB_STEP_SUMMARY
             echo "                         【 STEP 2: OAuth Complete! 】" >> $GITHUB_STEP_SUMMARY
@@ -211,16 +229,25 @@ runs:
             echo '```' >> $GITHUB_STEP_SUMMARY
             echo "╔══════════════════════════════════════════════════════════════════════════╗" >> $GITHUB_STEP_SUMMARY
             echo "║                                                                          ║" >> $GITHUB_STEP_SUMMARY
-            echo "║                        ⚠️  Claude Code OAuth (by @grll) ⚠️               ║" >> $GITHUB_STEP_SUMMARY
+            echo "║                        ✨ Claude OAuth Login ✨                          ║" >> $GITHUB_STEP_SUMMARY
             echo "║                                                                          ║" >> $GITHUB_STEP_SUMMARY
             echo "╚══════════════════════════════════════════════════════════════════════════╝" >> $GITHUB_STEP_SUMMARY
             echo "" >> $GITHUB_STEP_SUMMARY
-            echo "     ░██████╗░  ░██████╗░  ░██╗░░░░░  ░██╗░░░░░" >> $GITHUB_STEP_SUMMARY
-            echo "     ██╔════╝░  ░██╔══██╗  ░██║░░░░░  ░██║░░░░░" >> $GITHUB_STEP_SUMMARY
-            echo "     ██║░░██╗░  ░██████╔╝  ░██║░░░░░  ░██║░░░░░" >> $GITHUB_STEP_SUMMARY
-            echo "     ██║░░╚██╗  ░██╔══██╗  ░██║░░░░░  ░██║░░░░░" >> $GITHUB_STEP_SUMMARY
-            echo "     ╚██████╔╝  ░██║░░██║  ░███████╗  ░███████╗" >> $GITHUB_STEP_SUMMARY
-            echo "     ░╚═════╝░  ░╚═╝░░╚═╝  ░╚══════╝  ░╚══════╝" >> $GITHUB_STEP_SUMMARY
+            echo "      ░██████╗ ░██╗      ░█████╗   ░██╗   ░██╗ ░██████╗░ ░███████░" >> $GITHUB_STEP_SUMMARY
+            echo "     ██╔═════╝ ░██║     ░██╔══██═╗ ░██║   ░██║ ░██╔══██╗ ░██╔═══╝" >> $GITHUB_STEP_SUMMARY
+            echo "     ██║       ░██║     ░███████ ║ ░██║   ░██║ ░██║░░██║ ░█████╗░" >> $GITHUB_STEP_SUMMARY
+            echo "     ██║       ░██║     ░██ ╔═██ ║ ░██║   ░██║ ░██║░░██║ ░██╔══╝" >> $GITHUB_STEP_SUMMARY
+            echo "     ╚██████═╗ ░███████╗░██ ║░██ ║ ░╚██████ ╔╝ ░██████╔╝ ░███████╗" >> $GITHUB_STEP_SUMMARY
+            echo "      ░╚═════╝  ░╚═════╝░ ╚═╝░░╚═╝  ░╚══════╝  ░╚═════╝  ░╚══════╝" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "     ░██╗      ░██████╗   ░██████╗  ░██╗ ░███╗   ░██╗" >> $GITHUB_STEP_SUMMARY
+            echo "     ░██║     ░██╔═══██╗ ░██╔════╝  ░██║ ░████╗  ░██║" >> $GITHUB_STEP_SUMMARY
+            echo "     ░██║     ░██║  ░██║ ░██║  ███╗ ░██║ ░██╔██╗ ░██║" >> $GITHUB_STEP_SUMMARY
+            echo "     ░██║     ░██║  ░██║ ░██║  ░██║ ░██║ ░██║╚██╗░██║" >> $GITHUB_STEP_SUMMARY
+            echo "     ░███████╗░╚██████╔╝ ░╚██████╔╝ ░██║ ░██║ ░╚████║" >> $GITHUB_STEP_SUMMARY
+            echo "     ░╚══════╝ ░╚═════╝   ░╚═════╝  ░╚═╝ ░╚═╝  ░╚═══╝" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "     by @grll" >> $GITHUB_STEP_SUMMARY
             echo "" >> $GITHUB_STEP_SUMMARY
             echo "   ─────────────────────────────────────────────────────────────────────" >> $GITHUB_STEP_SUMMARY
             echo "                       【 STEP 2: Authentication Failed 】" >> $GITHUB_STEP_SUMMARY
