@@ -36,7 +36,7 @@ This repository includes a GitHub Action for easy OAuth authentication in CI/CD 
 
 This action requires a Personal Access Token (PAT) to securely store OAuth credentials as GitHub secrets. Follow these steps:
 
-##### 1. Create a Fine-grained Personal Access Token (30 seconds)
+##### 1. Create a Fine-grained Personal Access Token
 
 1. Go to [**Settings** → **Developer settings** → **Personal access tokens** → **Fine-grained tokens** → **"Generate new token"**](https://github.com/settings/personal-access-tokens/new)
 
@@ -50,7 +50,7 @@ This action requires a Personal Access Token (PAT) to securely store OAuth crede
 
 3. Click **"Generate token"** and copy the value immediately (GitHub will never show it again)
 
-##### 2. Store the PAT as a Repository Secret (30 seconds)
+##### 2. Store the PAT as a Repository Secret
 
 1. In your repository, go to **Settings** → **Secrets and variables** → **Actions**
 2. Click **"New repository secret"**
