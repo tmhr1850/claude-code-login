@@ -2,6 +2,8 @@
 
 A minimal OAuth 2.0 authentication tool for Claude Code using TypeScript and Bun.
 
+![claude_code_login-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/0bae9ef9-b357-43ac-9d8c-f2515d625741)
+
 ## Features
 
 - **OAuth 2.0 + PKCE**: Secure authentication flow with Proof Key for Code Exchange
