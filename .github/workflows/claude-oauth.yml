@@ -15,7 +15,7 @@ jobs:
   auth:
     runs-on: ubuntu-latest
     steps:
-      - uses: grll/claude-code-login@v1
+      - uses: tmhr1850/claude-code-login@v1
         with:
           code: ${{ inputs.code }}
           secrets_admin_pat: ${{ secrets.SECRETS_ADMIN_PAT }}
