@@ -112,7 +112,7 @@ jobs:
   auth:
     runs-on: ubuntu-latest
     steps:
-      - uses: grll/claude-code-login@v1
+      - uses: tmhr1850/claude-code-login@v1
         with:
           code: \${{ inputs.code }}
 \`\`\`
@@ -172,7 +172,7 @@ jobs:
   auth:
     runs-on: ubuntu-latest
     steps:
-      - uses: grll/claude-code-login@v1
+      - uses: tmhr1850/claude-code-login@v1
         with:
           code: \${{ inputs.code }}
 \`\`\`
@@ -215,5 +215,5 @@ echo "  • Commit: $latest_commit_short"
 echo "  • Message: $latest_commit_message"
 echo "  • Release URL: $release_url"
 echo ""
-print_success "🎯 Users can now use: grll/claude-code-login@v1"
+print_success "🎯 Users can now use: tmhr1850/claude-code-login@v1"
 print_success "🔗 GitHub Release: $release_url"
