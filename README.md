@@ -85,7 +85,7 @@ jobs:
   auth:
     runs-on: ubuntu-latest
     steps:
-      - uses: grll/claude-code-login@v1
+      - uses: tmhr1850/claude-code-login@v1
         with:
           code: ${{ inputs.code }}
           secrets_admin_pat: ${{ secrets.SECRETS_ADMIN_PAT }}
@@ -171,7 +171,7 @@ jobs:
           fetch-depth: 1
 
       - name: Run Claude PR Action
-        uses: grll/claude-code-action@beta
+        uses: tmhr1850/claude-code-action@beta
         with:
           use_oauth: true
           claude_access_token: ${{ secrets.CLAUDE_ACCESS_TOKEN }}
